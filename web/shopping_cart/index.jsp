@@ -18,71 +18,82 @@
         }
     </style>
     <div class="row">
-        <input type="hidden" id="orders_id" value="<%= order_id  %>">
-        <div class="col-8">  
-            <div class="card bg-dark">
-                <div class="card-header text-center text-uppercase">
-                    Total de productos Agregados: 
-                    <span class="count-shopping-cart">0</span> 
-                    <i class="fas fa-shopping-bag"></i>
-                </div>
-                <div class="card-body">
-                    <table class="table table-hover table-borderless"> 
-                        <thead>
-                            <tr>
-                                <th colspan="4">
-                                    <div id="msg-shooping-cart"> </div>
-                                </th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <thead class="bg-info">
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-white">
+        <input type="hidden" id="orders_id" value="<%= order_id%>">
+    <div class="col-8">  
+        <div class="card bg-dark">
+            <div class="card-header text-center text-uppercase">
+                Total de productos Agregados: 
+                <span class="count-shopping-cart">0</span> 
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-borderless"> 
+                    <thead>
+                        <tr>
+                            <th colspan="4">
+                                <div id="msg-shooping-cart"> </div>
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <thead class="bg-info">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-white">
                         <%
                             ResultSet r = (ResultSet) request.getAttribute("rows_cart");
                             while (r.next()) {
                         %>
                         <tr id="row_order<%= r.getString("oi.id")%>">
-                        <input type="hidden" id="stock<%= r.getString("oi.id") %>" value="<%= r.getString("pro.stock") %>">
-                            <td>
-                                <label for=""> <%= r.getString("pro.name")%> </label>
-                                <input type="hidden" name="name" id="name<%= r.getString("oi.id")%>" disabled="" 
-                                       class="form-control" value="<%= r.getString("pro.name")%>">
-                            </td>
-                            <td>
-                                <%
-                                    int oi_price = (int) Double.parseDouble((String) r.getString("pro.price"));
-                                    int quantity = Integer.parseInt(r.getString("oi.quantity"));
-                                    int sub_total_pro = oi_price * quantity;
-                                %>
-                                <label for="" id="sub_total_pro<%= r.getString("oi.id")%>label" > 
-                                    <%= help.priceFormat(String.valueOf(sub_total_pro))%>
-                                </label>
-                                <input type="hidden" name="price_pro" id="price_pro<%= r.getString("oi.id")%>" 
-                                       disabled="" class="form-control" value="<%= r.getString("pro.price")%>">
-                            </td>
-                            <td>
-                                <input style="width:100px;" min="1" onchange="updateQuantity(this, <%= r.getString("oi.id")%>)" 
-                                       type="number" name="quantity" class="form-control" value="<%= quantity%>">
-                            </td>
-                            <td>
-                                <button class="btn btn-outline-danger" onclick="deleteOrder(<%= r.getString("oi.id")%>)"> 
-                                    <i class="fas fa-trash-alt"></i> 
-                                </button>
-                            </td>
-                        </tr>
+                    <input type="hidden" id="stock<%= r.getString("oi.id")%>" value="<%= r.getString("pro.stock")%>">
+                    <td>
+                        <label for=""> <%= r.getString("pro.name")%> </label>
+                        <input type="hidden" name="name" id="name<%= r.getString("oi.id")%>" disabled="" 
+                               class="form-control" value="<%= r.getString("pro.name")%>">
+                    </td>
+                    <td>
+                        <%
+                            int oi_price = (int) Double.parseDouble((String) r.getString("pro.price"));
+                            int quantity = Integer.parseInt(r.getString("oi.quantity"));
+                            int sub_total_pro = oi_price * quantity;
+                        %>
+                        <label for="" id="sub_total_pro<%= r.getString("oi.id")%>label" > 
+                            <%= help.priceFormat(String.valueOf(sub_total_pro))%>
+                        </label>
+                        <input type="hidden" name="price_pro" id="price_pro<%= r.getString("oi.id")%>" 
+                               disabled="" class="form-control" value="<%= r.getString("pro.price")%>">
+                    </td>
+                    <td>
+                        <input style="width:100px;" min="1" onchange="updateQuantity(this, <%= r.getString("oi.id")%>)" 
+                               type="number" name="quantity" class="form-control" value="<%= quantity%>">
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-danger" onclick="deleteOrder(<%= r.getString("oi.id")%>)"> 
+                            <i class="fas fa-trash-alt"></i> 
+                        </button>
+                    </td>
+                    </tr>
 
-                        <% }%>
+                    <% }%>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4">
+                                <div class="msg-empty-cart">
+                                </div> 
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
 
             </div>
@@ -99,7 +110,7 @@
                 <p>Monto Total: <span id="monto_total">0</span></p>
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline-info btn-block"> Pagar </button>
+                <button class="btn btn-outline-info btn-block" id="shopping-cart-payment"> Pagar </button>
             </div>
         </div>
     </div>
