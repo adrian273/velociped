@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.5] 29/10/2019
+## Added
+- Modal de confirmacion de envios y pagos en el carrito de compras
+- Edicion de valores en ordenes al confirmar el la compra
+- Modelo de direcciones
+## Updated
+- creacion de nuevas ordenes al confirmar pagos;;
+- session en al crear la nueva ordern;
+
 ## [0.9.0] 28/10/2019
 ## Updated 
 - nuevas tablas agregadas
