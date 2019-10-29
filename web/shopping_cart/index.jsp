@@ -18,7 +18,7 @@
         }
     </style>
     <div class="row">
-        <input type="hidden" id="orders_id" value="<%= order_id%>">
+        <input type="hidden" id="orders_id" value="<%= order_id %>">
     <div class="col-8">  
         <div class="card bg-dark">
             <div class="card-header text-center text-uppercase">
@@ -110,7 +110,7 @@
                 <p>Monto Total: <span id="monto_total">0</span></p>
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline-info btn-block" id="shopping-cart-payment"> Pagar </button>
+                <button class="btn btn-outline-info btn-block" id="checkout-shopping-cart"> Realizar pedido </button>
             </div>
         </div>
     </div>

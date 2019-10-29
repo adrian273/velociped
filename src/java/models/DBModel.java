@@ -25,7 +25,7 @@ public class DBModel {
     private ResultSet rs;
   
     private static final String HOST = "localhost";
-    private static final String DB = "velociped";
+    private static final String DB = "velocipedv1";
     private static final String USER = "root";
     private static final String PASS = "root";
     private static final String DRIVER = "org.gjt.mm.mysql.Driver";

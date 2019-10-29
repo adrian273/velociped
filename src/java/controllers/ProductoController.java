@@ -44,13 +44,13 @@ public class ProductoController extends HttpServlet {
     }
 
     /**
-     * 
+     *
      * @param request
      * @param response
      * @throws ServletException
      * @throws IOException
      * @throws ClassNotFoundException
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected void viewProduct(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
@@ -72,6 +72,8 @@ public class ProductoController extends HttpServlet {
             //rq.forward(request, response);
             response.sendRedirect("producto?action=view&msg=delete");
             //viewProduct(request, response);
+        } else {
+            response.sendRedirect("producto?action=view&msg=delete_fail");
         }
     }
 
@@ -97,89 +99,103 @@ public class ProductoController extends HttpServlet {
             throws ServletException, IOException {
         String action = "";
         action = request.getParameter("action");
-        if (action.equals("view")) {
-            try {
-                if (request.getParameter("msg") != null) {
-                    String getMessage = request.getParameter("msg");
-                    String color = "";
-                    String message = "";
-                    if (getMessage.equals("delete")) {
-                        message = "Eliminado con exito!";
-                        message += " <i class='fas fa-trash'></i>";
-                        color = "danger";
+        switch (action) {
+            case "view":
+                try {
+                    if (request.getParameter("msg") != null) {
+                        String getMessage = request.getParameter("msg");
+                        String color = "";
+                        String message = "";
+                        switch (getMessage) {
+                            case "delete":
+                                message = "Eliminado con exito!";
+                                message += " <i class='fas fa-trash'></i>";
+                                color = "danger";
+                                break;
+                            case "delete_fail":
+                                message = "<b>[No Eliminado]</b> Este producto esta siendo usado!";
+                                message += " <i class=\"far fa-dizzy\"></i>";
+                                color = "danger";
+                                break;
+                            case "store":
+                                message = "Agregado con exito!";
+                                message += " <i class='fas fa-check'></i>";
+                                color = "success";
+                                break;
+                            case "update":
+                                message = "Guardado con exito!";
+                                message += " <i class='fas fa-save'></i>";
+                                color = "primary";
+                                break;
+                            default:
+                                message = "Ninguna accion realizada!";
+                                message += "";
+                                color = "warning";
+                                break;
+                        }
+                        request.setAttribute("msg", message);
+                        request.setAttribute("color", color);
                     }
-                    else if (getMessage.equals("store")) {
-                        message = "Agregado con exito!";
-                        message += " <i class='fas fa-check'></i>";
-                        color = "success";
-                    }
-                    else if (getMessage.equals("update")) {
-                       message = "Guardado con exito!";
-                        message += " <i class='fas fa-save'></i>";
-                        color = "primary"; 
-                    }
-                    request.setAttribute("msg", message);
-                    request.setAttribute("color", color);
+                    viewProduct(request, response);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                viewProduct(request, response);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (action.equals("delete")) {
-            try {
+                break;
+            //processRequest(request, response);
+            case "delete":
+                try {
+                    String id = request.getParameter("id");
+                    deleteProduct(request, response, id);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            case "edit":
                 String id = request.getParameter("id");
-                deleteProduct(request, response, id);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (action.equals("edit")) {
-            String id = request.getParameter("id");
-            try {
-                viewDetailProduct(request, response, id);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else if (action.equals("prod")) {
-            String category = "";
-            category = request.getParameter("category");
-            int categories_id = 0;
-            
-            if (category.equals("bicicletas")) {
-                categories_id = 1;
-            } 
-            else if (category.equals("accesorios")) {
-                categories_id = 2;
-            } 
-            else if (category.equals("componentes")) {
-                categories_id = 3;
-            }
-            else if (category.equals("indumentaria")) {
-                categories_id = 4;
-            }
-            
-            ProductModel promdl = null;
-            try {
-                promdl = new ProductModel();
-                ResultSet proData = promdl.getProdByCategory(categories_id);
-                
-                request.setAttribute("data", proData);
-                request.setAttribute("title", category);
-                RequestDispatcher rq = request.getRequestDispatcher("/prod-category.jsp");
-                rq.forward(request, response);
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-          
-        }
+                try {
+                    viewDetailProduct(request, response, id);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            case "prod":
+                String category = "";
+                category = request.getParameter("category");
+                int categories_id = 0;
+                switch (category) {
+                    case "bicicletas":
+                        categories_id = 1;
+                        break;
+                    case "accesorios":
+                        categories_id = 2;
+                        break;
+                    case "componentes":
+                        categories_id = 3;
+                        break;
+                    case "indumentaria":
+                        categories_id = 4;
+                        break;
+                    default:
+                        break;
+                }
+                ProductModel promdl = null;
+                try {
+                    promdl = new ProductModel();
+                    ResultSet proData = promdl.getProdByCategory(categories_id);
 
-        //processRequest(request, response);
+                    request.setAttribute("data", proData);
+                    request.setAttribute("title", category);
+                    RequestDispatcher rq = request.getRequestDispatcher("/prod-category.jsp");
+                    rq.forward(request, response);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -220,20 +236,20 @@ public class ProductoController extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else if (type.equals("update")) {
+        } else if (type.equals("update")) {
             try {
                 ProductModel pro = new ProductModel();
                 String id = request.getParameter("id");
                 boolean resp = pro.update(id, name, slug, description, price, image, visible, stock, categories_id, created_at);
-                if (resp == false)
+                if (resp == false) {
                     response.sendRedirect("producto?action=view&msg=update");
+                }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
 

@@ -5,6 +5,7 @@
 --%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     HttpSession ses = request.getSession();
     boolean login = false;
@@ -12,6 +13,7 @@
     login = Boolean.parseBoolean(String.valueOf(ses.getAttribute("login")));
     id = String.valueOf(ses.getAttribute("id_user"));
 %>
+<c:set var="path" value="<%= request.getContextPath()%>"></c:set>
 <footer class="footer mt-auto py-3"  style="background-color: #383f44">
     <div class="container-fluid">
         <div class="col-12">
@@ -107,8 +109,6 @@
 </div>
 
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="<%= request.getContextPath()%>"></c:set>
 <script src="${path}/assets/js/jquery.js"></script>
 <script src="${path}/assets/js/bootstrap.js"></script>
 <script src="${path}/assets/js/script.min.js"></script>

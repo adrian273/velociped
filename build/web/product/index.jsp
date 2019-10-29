@@ -74,7 +74,7 @@
             <td>
                 <a href="<%=request.getContextPath()%>/producto?action=delete&id=<%= rs.getString("id")%>" 
                    class="btn btn-danger" title="Eliminar <%= rs.getString("name")%>">
-                    <i class="fas fa-remove"></i>   
+                    <i class="fas fa-trash"></i>   
                 </a>  
                 <a href="<%=request.getContextPath()%>/producto?action=edit&id=<%= rs.getString("id")%>"
                    class="btn btn-warning" title="Editar <%= rs.getString("name")%>"> <i class="fa fa-pencil"></i>  </a>

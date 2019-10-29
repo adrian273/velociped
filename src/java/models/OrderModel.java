@@ -38,11 +38,12 @@ public class OrderModel {
     public boolean insert(String user_id) throws SQLException {
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //String created_at = sdf.format(new Date());
-        String query = "INSERT INTO orders (subtotal, shipping, created_at, updated_at, users_id, status_order_id) "
+        String query = "INSERT INTO orders (subtotal, shipping, created_at, updated_at, users_id, status_order_id, payments_id) "
                 + "VALUES (0, 0, "
                 + null + ", "
                 + null + ", "
                 + user_id + ","
+                + 1 + ","
                 + 1 + ");";
         //System.out.println(query);
         //return false;
