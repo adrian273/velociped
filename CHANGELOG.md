@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.9.6] 30/10/2019
+## Added
+- Agregado las regiones y comunas en el formulario de despacho y tipo de pago (en carrito)
+
 ## [0.9.5] 29/10/2019
 ## Added
 - Modal de confirmacion de envios y pagos en el carrito de compras

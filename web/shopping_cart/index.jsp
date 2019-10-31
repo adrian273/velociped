@@ -110,6 +110,7 @@
                 <p>Monto Total: <span class="monto_total">0</span></p>
             </div>
             <div class="card-footer">
+                <!--<button class="btn btn-outline-info btn-block" id="checkout-shopping-cart"> Realizar pedido </button>-->
                 <button class="btn btn-outline-info btn-block" id="checkout-shopping-cart"> Realizar pedido </button>
             </div>
         </div>
@@ -142,9 +143,8 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="" class="form-check-label"><b>Region</b></label>
-                                <select name="region" id="region" class="form-control">
+                                <select name="region" onchange="changeTerritory(this.value)" id="region" class="form-control">
                                     <option value=""></option>
-                                    <option value="A"> Talca </opttion>
                                 </select>
                             </div>
                         </div>
