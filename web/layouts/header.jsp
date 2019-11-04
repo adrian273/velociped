@@ -124,7 +124,7 @@
                                                href="${path}/producto?action=view">Productos  
                                                 <i class="fas fa-store"></i> </a>
                                             <a class='dropdown-item' role='presentation' 
-                                               href="<%=request.getContextPath()%>/login.jsp">Usuarios 
+                                               href="<%=request.getContextPath()%>/userc?view=grid">Usuarios 
                                                 <i class="fa fa-user"></i> </a>
                                             <a class='dropdown-item' role='presentation' 
                                                href="<%=request.getContextPath()%>/order?type=all_orders">Ventas 
@@ -142,7 +142,9 @@
                                         <%
                                             if (login != false) {
                                                 out.print("<a class='dropdown-item' role='presentation' href='" + request.getContextPath() + "/userc?view=info&id=" + id + "'>Editar <i class='fas fa-tools'></i> </a>");
+                                                out.print("<a class='dropdown-item' role='presentation' href='" + request.getContextPath() + "/order?type=my_order'> Mis Ordenes <i class='fas fa-truck-moving'></i> </a>");
                                                 out.print("<a class='dropdown-item' role='presentation' href='" + request.getContextPath() + "/logout'>Cerrar Session <i class='fas fa-sign-out-alt'></i> </a>");
+
                                             } else {
                                                 out.print("<a class='dropdown-item' role='presentation' href='" + request.getContextPath() + "/login.jsp'>Login <i class='fas fa-sign-in-alt'></i> </a>");
                                                 out.print("<a class='dropdown-item' role='presentation' href='" + request.getContextPath() + "/userc?view=create'>Registrarse <i class='fas fa-plus'></i> </a>");
@@ -159,4 +161,4 @@
                 <!-- End: Navbar - Apple -->
             </div>
         </div>
-        <div class="container-fluid border-primary text-white shadow" style="margin-top:5%;">
+        <div class="container-fluid border-primary text-white shadow" style="margin-top:5%;" id="app">

@@ -25,11 +25,10 @@
 
     <div class="table-fixed">
         <table class="table table-hover table-dark">
-            <h4> Lista de Ordenes </h4>
+            <h4> Lista De Mis Ordenes </h4>
             <thead>
                 <tr> 
-                    <th>Id</th>
-                    <th>Nombre Cliente</th>
+                    <th>Numero Orden</th>
                     <th>Total</th>
                     <th>Creada</th>
                     <th>Edicion</th>
@@ -45,22 +44,29 @@
                     num += 1;
 
             %>
-            <tr onclick="viewOrder(<%= row.getString("ors.id")%>)" title="Presiona para editar o ver info">
+            <tr onclick="viewOrder(<%= row.getString("ors.id") %>)" title="Presiona para editar o ver info">
                 <td> <a href="order?type=view_order&i=<%= row.getString("ors.id")%>"><%=  row.getString("ors.id")%> </a></td>
-                <td> <%= row.getString("us.name")%> </td>
                 <td> <%= help.priceFormat(row.getString("ors.shipping"))%> </td>
                 <td> <%= row.getString("ors.created_at")%> </td>
                 <td> <%= row.getString("ors.updated_at")%> </td>
                 <td>  
-                    <span class="badge badge-<%= row.getString("st_ors.color")%>"><%= row.getString("st_ors.status")%></span>
+                    <span class="badge badge-<%= row.getString("st_ors.color")%>">
+                        <%= row.getString("st_ors.status")%>
+                    </span>
                 </td>
             </tr>
             <%}%>
-        <caption>Lista de Ventas/Total: <b><%= num%></b> </caption>
+        <caption>Lista de Compras/Total: <b><%= num %></b> </caption>
         </tbody>
     </table>
+    <% if (num == 0) { %>
+        <div class="alert alert-info alert-dismissible animated fadeInDown show" role="alert">
+            <strong class="">No has realizado ninguna orden</strong> <i class="far fa-grin-beam-sweat"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
 </div>
-<%-- modal de informacion de las ordenes --%>
-<jsp:include page="../orders/info.jsp"></jsp:include>
-<%-- ------------------------------------ ----%>
+    <jsp:include page="../orders/info.jsp"></jsp:include>
 <jsp:include page="../layouts/footer.jsp"></jsp:include>

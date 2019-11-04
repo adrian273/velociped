@@ -15,3 +15,71 @@
     position: sticky;
     background-color: #343a40;  
 }
+
+
+/* Scroll primary Table*/
+.table-fixed::-webkit-scrollbar {
+    width: 15px;
+    height: 8px;
+}
+
+/* Estilos barra (thumb) de scroll */
+.table-fixed::-webkit-scrollbar-thumb {
+    background: #383f44;
+    border-radius: 0px;
+}
+
+.table-fixed::-webkit-scrollbar-thumb:active {
+    background-color: red;
+}
+
+.table-fixed::-webkit-scrollbar-thumb:hover {
+    background: #383f44;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos track de scroll */
+.table-fixed::-webkit-scrollbar-track {
+    background: #636c75;
+    
+}
+
+.table-fixed::-webkit-scrollbar-track:hover, 
+.table-fixed::-webkit-scrollbar-track:active {
+    //background: white;
+    
+}
+
+
+/* Scroll primary APP*/
+body::-webkit-scrollbar {
+    width: 15px;
+    height: 8px;
+}
+
+/* Estilos barra (thumb) de scroll */
+body::-webkit-scrollbar-thumb {
+    background: #383f44;
+    border-radius: 0px;
+}
+
+body::-webkit-scrollbar-thumb:active {
+    background-color: red;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #383f44;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos track de scroll */
+body::-webkit-scrollbar-track {
+    background: #636c75;
+}
+
+body::-webkit-scrollbar-track:hover, 
+body::-webkit-scrollbar-track:active {
+    //background: white;
+}
+
+

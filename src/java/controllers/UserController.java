@@ -42,6 +42,18 @@ public class UserController extends HttpServlet {
 
         }
     }
+    
+    protected void viewGridUser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            UserModel user = new UserModel();
+            ResultSet rs = user.getAll();
+            request.setAttribute("data", rs);
+            RequestDispatcher rq = request.getRequestDispatcher("/user/");
+            rq.forward(request, response);
+        }
+    }
 
     /**
      *
@@ -98,18 +110,32 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         String view = request.getParameter("view");
-        if (view.equals("create")) {
-            response.sendRedirect("user/create.jsp");
-        } else if (view.equals("info")) {
-
-            String id = request.getParameter("id");
+        switch (view) {
+            case "create":
+                response.sendRedirect("user/create.jsp");
+                break;
+            case "info":
+                String id = request.getParameter("id");
+                try {
+                    viewInfoUser(request, response, id);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                }   break;
+            case "grid":
+        {
             try {
-                viewInfoUser(request, response, id);
+                viewGridUser(request, response);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+                break;
+            default:
+                break;
         }
     }
 

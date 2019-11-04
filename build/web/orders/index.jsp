@@ -20,7 +20,7 @@
     <button type="button" class="btn btn-secondary helpme mb-3" 
             data-toggle="tooltip" data-placement="bottom" 
             title="Presiona la celda para editar o ver informacion">
-        Ayuda
+        <i class="far fa-question-circle"></i>
     </button>
 
     <div class="table-fixed">
@@ -60,4 +60,7 @@
         </tbody>
     </table>
 </div>
+<%-- modal de informacion de las ordenes --%>
+<jsp:include page="../orders/info.jsp"></jsp:include>
+<%-- ------------------------------------ ----%>
 <jsp:include page="../layouts/footer.jsp"></jsp:include>

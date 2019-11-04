@@ -50,6 +50,12 @@ public class UserModel {
         return rs;
     }
     
+    public ResultSet getAll() throws SQLException {
+        String query = "SELECT * FROM users";
+        ResultSet rs = db.result(query);
+        return rs;
+    }
+    
     /**
      * insert new record user
      * @param name

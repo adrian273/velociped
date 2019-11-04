@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.8] 04/10/2019
+## Updated
+- Estilo del Scroll en las tablas y App global
+- Cambio a Dark mode en registro de usuario
+- Cambio de estructura en modal de Agregar informacion de pago, ahora esta en un template aparte
+## Added
+- Agregado crud de usuarios (view)
+- Modal de informacion de ordenes
+## Fixed
+- Arreglado la palabra constitucion en eleccion de comunas
+
 ## [0.9.7] 03/10/2019
 ## Fixed
 - al editar la cantidad , si sobre pasa el stock, el valor sera el del stock del producto
