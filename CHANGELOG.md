@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.7] 03/10/2019
+## Fixed
+- al editar la cantidad , si sobre pasa el stock, el valor sera el del stock del producto
+## Added
+- vista del crud de ventas
+## Updated
+- vista del crud de producos en la tabla
+
 ## [0.9.6] 30/10/2019
 ## Added
 - Agregado las regiones y comunas en el formulario de despacho y tipo de pago (en carrito)

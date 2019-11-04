@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -79,10 +80,29 @@ public class OrderController extends HttpServlet {
                         out.print("fail_updated_order");
                     }
                     break;
+                case "all_orders":
+                    viewAllOrders(request, response);
+                    break;
+                case "view_order":
+                    String id = request.getParameter("i");
+                    out.print(id);
+                    break;
             }
         }
     }
 
+    protected void viewAllOrders(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out  = response.getWriter()) {
+            OrderModel order = new OrderModel();
+            ResultSet row = order.getAll();
+            request.setAttribute("data", row);
+            RequestDispatcher rq = request.getRequestDispatcher("/orders/");
+            rq.forward(request, response);
+        }
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

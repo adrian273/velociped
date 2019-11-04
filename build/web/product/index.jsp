@@ -24,7 +24,7 @@
    style="float:right;">Agregar nuevo <i class="fas fa-plus"></i> </a>
 
 <jsp:include page="../layouts/show-hide-btn.jsp"></jsp:include>             
-
+<div class="table-fixed">
     <table class="table table-hover table-dark">
         <thead>
             <tr>
@@ -85,4 +85,5 @@
         %>
     </tbody>
 </table>
+</div>
 <jsp:include page="../layouts/footer.jsp"></jsp:include>
