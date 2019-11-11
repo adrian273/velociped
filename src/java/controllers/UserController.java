@@ -7,11 +7,14 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +45,16 @@ public class UserController extends HttpServlet {
 
         }
     }
-    
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     protected void viewGridUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
@@ -52,6 +64,55 @@ public class UserController extends HttpServlet {
             request.setAttribute("data", rs);
             RequestDispatcher rq = request.getRequestDispatcher("/user/");
             rq.forward(request, response);
+        }
+    }
+
+    protected void viewInfoModal(HttpServletRequest request, HttpServletResponse response, String id)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            UserModel user = new UserModel();
+            ResultSet rs = user.getUserById(id);
+            rs.first();
+
+            JsonObjectBuilder data = Json.createObjectBuilder();
+            data.add("id", rs.getString("id"));
+            data.add("name", rs.getString("name"));
+            data.add("email", rs.getString("email"));
+            data.add("created_at", rs.getString("created_at"));
+            data.add("type", rs.getString("type"));
+            out.print(data.build());
+        }
+    }
+
+    /**
+     * 
+     * @param request
+     * @param response
+     * @param id
+     * @param type
+     * @throws ServletException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    protected void changeType(HttpServletRequest request, HttpServletResponse response, String id, String type)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            UserModel user = new UserModel();
+            boolean up = user.updateProfile(Integer.parseInt(id), type);
+            JsonObjectBuilder data = Json.createObjectBuilder();
+            if (up == false) {
+                data.add("type", "success");
+                data.add("class_", "success");
+                data.add("msg", "Editado con exito");
+            } else {
+                data.add("type", "error");
+                data.add("class_", "danger");
+                data.add("msg", "Error al editar");
+            }
+            out.print(data.build());
         }
     }
 
@@ -72,7 +133,7 @@ public class UserController extends HttpServlet {
             HttpSession ses = request.getSession();
             String id_auth = (String) ses.getAttribute("id_user");
             String type = (String) ses.getAttribute("typeProfile");
-            
+
             if (id.equals(id_auth) || type.equals("admin")) {
                 UserModel userData = new UserModel();
                 ResultSet rs = userData.getUserById(id);
@@ -122,17 +183,38 @@ public class UserController extends HttpServlet {
                     Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-                }   break;
-            case "grid":
-        {
-            try {
-                viewGridUser(request, response);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            case "grid": {
+                try {
+                    viewGridUser(request, response);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
+            break;
+            case "view-info":
+                String i = request.getParameter("i");
+                 {
+                    try {
+                        viewInfoModal(request, response, i);
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                break;
+            case "change-type":
+                String id_ = request.getParameter("i");
+                String type = request.getParameter("type");
+                 {
+                    try {
+                        changeType(request, response, id_, type);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                 break;
             default:
                 break;

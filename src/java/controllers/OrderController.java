@@ -166,7 +166,8 @@ public class OrderController extends HttpServlet {
 
         ResultSet order_data = ord.getByOrderId(Integer.parseInt(id));
         ResultSet product_data = items.getShoppingCart(id);
-
+        HttpSession ses = request.getSession();
+        
         try (PrintWriter out = response.getWriter()) {
             
             JsonObjectBuilder json = Json.createObjectBuilder();
@@ -198,6 +199,7 @@ public class OrderController extends HttpServlet {
             json.add("address", order_data.getString("addr.address"));
             json.add("phone", order_data.getString("addr.phone"));
             
+            json.add("type_profile", (String) ses.getAttribute("typeProfile"));
             
             json.add("products", arrJson);
 

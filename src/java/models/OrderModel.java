@@ -43,7 +43,7 @@ public class OrderModel {
         String query = "SELECT * FROM orders ors "
                 + "LEFT JOIN users us ON us.id = ors.users_id "
                 + "LEFT JOIN status_order st_ors ON st_ors.id = ors.status_order_id "
-                + "WHERE st_ors.id != 1";
+                + "WHERE st_ors.id != 1 ORDER BY ors.id DESC";
         ResultSet rs = db.result(query);
         return rs;
     }

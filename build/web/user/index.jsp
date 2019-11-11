@@ -21,12 +21,12 @@
     <button type="button" class="btn btn-secondary helpme mb-3" 
             data-toggle="tooltip" data-placement="bottom" 
             title="Presiona la celda para editar o ver informacion">
-        Ayuda
+        <i class="far fa-question-circle"></i>
     </button>
 
     <div class="table-fixed">
         <table class="table table-hover table-dark">
-            <h4> Lista de Ordenes </h4>
+            <h4> Lista de usuarios </h4>
             <thead>
                 <tr> 
                     <th>Id</th>
@@ -45,7 +45,7 @@
                     num += 1;
 
             %>
-            <tr onclick="" title="Presiona para mostrar información">
+            <tr onclick="viewInfoUser(<%= row.getString("id") %>)" title="Presiona para mostrar información">
                 <td> <%= row.getString("id") %> </td>
                 <td> <%= row.getString("name") %> </td>
                 <td> <%= row.getString("email") %> </td>
@@ -62,4 +62,5 @@
         </tbody>
     </table>
 </div>
+<jsp:include page="../user/modal-info.jsp"></jsp:include>        
 <jsp:include page="../layouts/footer.jsp"></jsp:include>

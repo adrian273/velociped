@@ -3,7 +3,7 @@
     Created on : 04-11-2019, 14:01:31
     Author     : adrian
 --%>
-<!-- MODAL CheckOut -->
+<!-- MODAL Informacion de la orden -->
 <div class="modal bd-example-modal-xl animated fadeInLeft" style="color:white;background-color: #4492e033;" id="myModalOrder" role="dialog">
     <div class="modal-dialog modal-xl bg-dark" tabindex="-1">
         <button type="button" class="btn btn-outline-info" style="float:right;border-radius: 0px;cursor: pointer !important;" 

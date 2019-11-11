@@ -7,6 +7,7 @@ package models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -88,6 +89,21 @@ public class UserModel {
     
     public boolean verificEmail(String email) {
         return false;
+    }
+    
+    /**
+     * Edicion de tipo de perfil del admin o user
+     * @param id
+     * @param type
+     * @return
+     * @throws SQLException 
+     */
+    public boolean updateProfile(int id, String type) throws SQLException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String updated_at = sdf.format(new Date());
+        String query = "UPDATE users SET type='"
+                + type + "', updated_at='" + updated_at + "' WHERE id=" + id;
+        return db.execute(query);
     }
     
 }

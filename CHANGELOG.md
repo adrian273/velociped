@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.9] 05/10/2019
+## Updated
+- Agregar productos desde el inicio de la pagina.
+- Cambio en el orden que se muestran la lista de "ordenes".
+## fixed
+- Cambio de titulo en lista de usuarios.
+## Added
+- Modal con informacion del usuario en administrador.
+- Edicion de tipo en ver usuarios en admin, falta QUERY y una logica para que se actualize al cerrrar modal;;
+## 09/11/2019
+- agregado logica para edicion de tipo de perfil en usuario
+
+
 ## [0.9.8] 04/10/2019
 ## Updated
 - Estilo del Scroll en las tablas y App global

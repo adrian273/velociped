@@ -13,6 +13,8 @@
     HttpSession ses = request.getSession();
     boolean login = false;
     login = Boolean.parseBoolean(String.valueOf(ses.getAttribute("login")));
+    String order_id = "";
+    order_id = String.valueOf(ses.getAttribute("order_id"));
 %>
 <div class="col-12">
     <!-- Start: MUSA_carousel-product-cart-slider --><div class="container">
@@ -71,9 +73,9 @@
                                             <p class="btn-add">
                                                 <c:choose>
                                                     <c:when test="${login == true}">
-                                                        <button class="hidden-sm btn btn-dark">Agregar <i class="fa fa-shopping-cart"></i></button>
-                                                        </c:when>
-                                                        <c:when test="${login != true}">
+                                                        <button class="hidden-sm btn btn-dark" onclick="add_cart(this, <%= rs.getString("id")%>, <%= order_id %>, <%= rs.getString("price")%>, <%= rs.getString("stock")%>)">Agregar <i class="fa fa-shopping-cart"></i></button>
+                                                    </c:when>
+                                                    <c:when test="${login != true}">
                                                         <button class="hidden-sm btn btn-dark" disabled="disabled" title="Inicie session, para agregar productos"> Agregar <i class="fa fa-shopping-cart"></i></button>
                                                         </c:when>
                                                     </c:choose>
@@ -88,11 +90,11 @@
                             </div>
                             <% count += 1;
                                 }
-                              
+
                             %>
-                            <input type="hidden" value="<%= count %>" id="col-size">
+                            <input type="hidden" value="<%= count%>" id="col-size">
                             <!-- panel del producto -->
-                             
+
 
                         </div>
                     </div>
