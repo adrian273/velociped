@@ -7,6 +7,7 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +33,16 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            // -----------------------------------------------------------------
             HttpSession session = request.getSession();
             session.invalidate();
-            response.sendRedirect("index.jsp");
+            // -----------------------------------------------------------------
+            request.setAttribute("msg-log", "<b>Session cerrada! <i class=\"far fa-laugh-squint\"></i></b>");
+            request.setAttribute("color", "warning");
+            // -----------------------------------------------------------------
+            RequestDispatcher rq = request.getRequestDispatcher("/index.jsp");
+            //response.sendRedirect("index.jsp");
+            rq.forward(request, response);
         }
     }
 

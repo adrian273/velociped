@@ -12,57 +12,68 @@
 <c:set var="path" value="<%= request.getServletContext().getContextPath()%>"></c:set>
     <div class="card bg-dark text-white">
         <form action="<%=request.getContextPath()%>/producto" method="post">
-            <input type="hidden" name="type" value="store">
-            <div class="card-header ">
-                <h1 class="text-center">Agregar Nuevo Producto</h1>
+        <input type="hidden" name="type" value="store">
+        <div class="card-header ">
+            <h1 class="text-center">Agregar Nuevo Producto</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <label for="">Nombre</label>
+                    <input type="text" name="name" class="form-control" required="">
+                </div>
+                <div class="col-6">
+                    <label for="">Slug</label>
+                    <input type="text" name="slug" class="form-control">
+                </div>
+
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-4">
-                        <label for="">Nombre</label>
-                        <input type="text" name="name" class="form-control" required="">
-                    </div>
-                    <div class="col-4">
-                        <label for="">Slug</label>
-                        <input type="text" name="slug" class="form-control">
-                    </div>
-                    <div class="col-4">
-                        <label for="">Precio</label>
-                        <input type="number" name="precio" class="form-control" required="">
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-6">
-                        <div class="row">
-                            <div class="col-6">
-                               
-                            </div>
-                            <div class="col-6">
-                                
+            <div class="row">
+                <div class="col-6">
+                    <label for="">Precio</label>
+                    <input type="number" name="precio" class="form-control" required="">
+                </div>
+                <div class="col-6">
+                    <label for="" class="form-check-label">Imagen</label>
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-outline-secondary">Opciones</button>
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" onclick="changeUploadImage('default')">Por defecto</a>
+                                <a class="dropdown-item" href="#" onclick="changeUploadImage('url')">Url</a>
+                                <a class="dropdown-item" href="#" onclick="changeUploadImage('upload-file')">Subir Archivo</a>   
                             </div>
                         </div>
+                        <input type="hidden" name="img-temp" id="img-temp" value="">
+                        <input type="text" name="image" class="form-control image-product" value="" aria-label="Text input with segmented dropdown button">
                     </div>
-                    <div class="col-6">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="image">Imagen</label>
-                                <!--<input type="file" class="form-control-file" name="image">-->
-                            </div>
-
-                        </div>
-                    </div>
+                    <jsp:include page="../layouts/btn-information.jsp">
+                        <jsp:param name="msg-information" value="Dejar en blanco para imagen por defecto"></jsp:param>
+                    </jsp:include>
+                    <!--<label for="image">Imagen
+                    </label> -->
+                    <!--<input type="file" class="form-control-file" name="image">-->
+                    <!--<span>
+                        <input type="text" name="image" class="form-control">
+                        
+                    </span> -->
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                        <label for="stock">Stock</label>
-                        <input type="text" name="stock" class="form-control" required="">
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="stock">Stock</label>
+                    <input type="text" name="stock" class="form-control" required="">
+                </div>
 
-                    <div class="col-6">
-                        <label for="categories_id">Categoria</label>
-                        <select name="categories_id" id="categories_id" class="form-control" required="">
-                            <option value=""></option>
+                <div class="col-6">
+                    <label for="categories_id">Categoria</label>
+                    <select name="categories_id" id="categories_id" class="form-control" required="">
+                        <option value=""></option>
                         <%
                             CategoryModel c = new CategoryModel();
                             ResultSet rs = c.getCategories();
@@ -98,5 +109,9 @@
         </div>
     </form>
 </div>
-
+<script>
+    window.onload = function () {
+        changeUploadImage('default');
+    }
+</script>
 <jsp:include page="../layouts/footer.jsp"></jsp:include>

@@ -47,19 +47,19 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link" 
-                               href="<%=request.getContextPath()%>/producto?action=prod&category=bicicletas">Bicicletas</a>
+                               href="<%=request.getContextPath()%>">Contacto</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" 
-                               href="<%=request.getContextPath()%>/producto?action=prod&category=accesorios">Accesorios</a>
+                               href="<%=request.getContextPath()%>">Quienes Somos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" 
-                               href="<%=request.getContextPath()%>/producto?action=prod&category=componentes">Componentes</a>
+                               href="<%=request.getContextPath()%>">Como Comprar</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" 
-                               href="<%=request.getContextPath()%>/producto?action=prod&category=indumentaria">Indumentaria</a>
+                               href="<%=request.getContextPath()%>">Politica de Seguridad</a>
                         </li>
                     </ul>
                 </div>

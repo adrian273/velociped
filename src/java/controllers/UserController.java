@@ -67,6 +67,16 @@ public class UserController extends HttpServlet {
         }
     }
 
+    /**
+     * 
+     * @param request
+     * @param response
+     * @param id
+     * @throws ServletException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     protected void viewInfoModal(HttpServletRequest request, HttpServletResponse response, String id)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
@@ -238,7 +248,7 @@ public class UserController extends HttpServlet {
         String email = request.getParameter("email");
         String username = request.getParameter("user");
         String pass = request.getParameter("pass");
-        String adress = request.getParameter("adress");
+        //String adress = request.getParameter("adress");
         // ---------------------------------------------------------------------
         // para crear nuevos registros
         // ---------------------------------------------------------------------
@@ -246,17 +256,33 @@ public class UserController extends HttpServlet {
             UserModel userData = null;
             try {
                 userData = new UserModel();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                boolean insert = userData.insert(name, email, username, pass, adress);
+                boolean insert = userData.insert(name, email, username, pass);
                 if (insert == false) {
-                    response.sendRedirect("index.jsp");
+                    request.setAttribute("msg-log", "Registrado con exito, <b>inicie session <i class=\"far fa-grin-beam\"></i></b>");
+                    request.setAttribute("color", "success");
+                    RequestDispatcher rq = request.getRequestDispatcher("/index.jsp");
+                    //response.sendRedirect("index.jsp");
+                    rq.forward(request, response);
                 }
             } catch (SQLException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        // Edicion del usuario;;
+        } else if (type.equals("update")) {
+            try {
+                UserModel usermdl = new UserModel();
+                HttpSession session = request.getSession();
+                int id = Integer.parseInt(String.valueOf(session.getAttribute("id_user")));
+                boolean update = usermdl.update(name, email, username, pass, id);
+                if (update == false) {
+                    request.setAttribute("message_edit", "Editado con exito");
+                    viewInfoUser(request, response, String.valueOf(session.getAttribute("id_user")));
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

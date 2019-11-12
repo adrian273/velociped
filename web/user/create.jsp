@@ -42,15 +42,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="adress" class="form-check-label">Direccion</label>
                                 <input type="text" name="adress" class="form-control" required="required">
                             </div>
                         </div>
-                    </div> 
-
+                    </div> -->
                 </div>
                 <div class="card card-footer">
                     <div class="col-12">

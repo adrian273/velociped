@@ -64,6 +64,16 @@ public class ProductoController extends HttpServlet {
         }
     }
 
+    /**
+     * 
+     * @param request
+     * @param response
+     * @param id
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * @throws ServletException 
+     */
     protected void deleteProduct(HttpServletRequest request, HttpServletResponse response, String id) throws IOException, ClassNotFoundException, SQLException, ServletException {
         ProductModel pm = new ProductModel();
         boolean delete = pm.delete(id);
@@ -77,6 +87,16 @@ public class ProductoController extends HttpServlet {
         }
     }
 
+    /**
+     * 
+     * @param request
+     * @param response
+     * @param id
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * @throws ServletException 
+     */
     protected void viewDetailProduct(HttpServletRequest request, HttpServletResponse response, String id) throws IOException, ClassNotFoundException, SQLException, ServletException {
         ProductModel pm = new ProductModel();
         ResultSet rs = pm.getProductById(id);
@@ -216,6 +236,7 @@ public class ProductoController extends HttpServlet {
         String price = "";
         price = request.getParameter("precio");
         String image = "";
+        image = request.getParameter("image");
         String stock = "";
         stock = request.getParameter("stock");
         String categories_id = request.getParameter("categories_id");

@@ -34,7 +34,7 @@ public class ProductModel {
                 + "LEFT JOIN categories ON products.categories_id = categories.id ";
         if (limit == true)
             query += "WHERE visible=" + 1;
-        query += " ORDER BY products.created_at DESC";
+        query += " ORDER BY products.created_at DESC, products.id DESC";
         if (limit == true)
             query += " LIMIT " + numLimit;
         System.out.println(query);
@@ -101,7 +101,7 @@ public class ProductModel {
                 + "'" + slug + "', "
                 + "'" + description + "', "
                 + "'" + price + "',"
-                + "'" + null + "',"
+                + "'" + img + "',"
                 + "'" + visible + "', "
                 + "'" + stock + "',"
                 + "'" + date + "',"

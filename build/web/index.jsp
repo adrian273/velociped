@@ -16,6 +16,14 @@
     String order_id = "";
     order_id = String.valueOf(ses.getAttribute("order_id"));
 %>
+<% if (request.getAttribute("msg-log") != null) {%> 
+<div class="alert alert-<%= request.getAttribute("color")%> alert-dismissible text-center animated fadeInDown show" role="alert">
+    <%= request.getAttribute("msg-log")%>
+    <a href="<%=request.getContextPath()%>/index.jsp" class="close" >
+        <span aria-hidden="true">&times;</span>
+    </a>
+</div>
+<% }%>
 <div class="col-12">
     <!-- Start: MUSA_carousel-product-cart-slider --><div class="container">
 

@@ -87,7 +87,10 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("order_id", orders_id);
                 session.setAttribute("typeProfile", type);
                 //--------------------------------------------------------------
-                response.sendRedirect("index.jsp");
+                //response.sendRedirect("index.jsp");
+                request.setAttribute("msg-log", "Bienvenid@: <b>" + nameUser.toUpperCase() + " <i class=\"far fa-laugh-beam\"></i></b>");
+                request.setAttribute("color", "success");
+                getServletConfig().getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
             } else {
                 String message = "Error en ingreso de credenciales";
                 request.setAttribute("message_auth", message);

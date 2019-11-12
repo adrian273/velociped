@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.9.91] 11/10/2019
+## Removed
+- Removido Direccion en Edicion de usuario;
+- Removido Direccion en Agregar nuevo usuario;
+## Added
+- Edicion de usuario
+- Mensaje de bienvenida al iniciar Session;;
+- Mensaje de Cerrar Session 
+- Mensaje al registrar nuevo usuario
+- Agregado UI de eleccion de tipo imagen en creacion y edicion
+
+## Updated
+- En prod-category se muestra la imagen por defecto o la agregada por url..
+- En agregar producto se puede agregar una url con la imagen del producto;;
+- Cambio en diseño de agregar productos
+- En crud productos, cambio de orden de mostrar informacion
+- En crud users, cambio de orden de mostrar informacion
+
 ## [0.9.9] 05/10/2019
 ## Updated
 - Agregar productos desde el inicio de la pagina.

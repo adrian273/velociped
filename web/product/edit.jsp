@@ -23,9 +23,9 @@
     //System.out.println(data);
 %>
 <div class="card bg-dark text-white">
-    
+
     <form action="<%=request.getContextPath()%>/producto" method="post">
-        
+
         <input type="hidden" name="type" value="update">
         <input type="hidden" name="id" value="<%= data.getString("id")%>">
         <div class="card-header ">
@@ -61,11 +61,38 @@
                 </div>
                 <div class="col-6">
                     <div class="row">
-                        <div class="col-6">
-                            <label for="image">Imagen</label>
-                            <!--<input type="file" class="form-control-file" name="image">-->
-                        </div>
+                        <div class="col-12">
+                            <%
+                                String imagen = "";
+                                if (data.getString("image") != null || data.getString("image") != "" || data.getString("image") != "null") {
+                                    imagen = data.getString("image").toString();
 
+                                }
+
+                            %>
+                            <label for="" class="form-check-label">Imagen</label>
+                            <div class="input-group mb-3">
+                                
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-outline-secondary">Opciones</button>
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#" onclick="changeUploadImage('default')">Por defecto</a>
+                                        <a class="dropdown-item" href="#" onclick="changeUploadImage('url')">Url</a>
+                                        <a class="dropdown-item" href="#" onclick="changeUploadImage('upload-file')">Subir Archivo</a>   
+                                    </div>
+                                </div>
+                                <input type="hidden" name="img-temp" id="img-temp" value="<%= imagen %>">
+                                <input type="text" name="image" class="form-control image-product" value="<%= imagen %>" aria-label="Text input with segmented dropdown button">
+                            </div>
+                            <!--<label for="image">Imagen</label> -->
+                            <!--<input type="file" class="form-control-file" name="image">-->
+                            
+                            <!--<input type="text" class="form-control" name="image" value="">
+                            <a href="#!">Subir Archivo</a> -->
+                        </div>
                     </div>
                 </div>
             </div>

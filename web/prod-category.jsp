@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-9">
                     <h3>
-                        <%= request.getAttribute("title").toString().toUpperCase() %>
+                        <%= request.getAttribute("title").toString().toUpperCase()%>
                     </h3>
                 </div>
                 <div class="col-md-3">
@@ -57,7 +57,11 @@
                             <div class="col-setting col-md-4 mb-5 mt-5 col-sm-4 col-xs-12">
                                 <div class="col-item">
                                     <div class="photo">
+                                        <% if (rs.getString("image").equals("null") || rs.getString("image") == "" ||  rs.getString("image").equals(null) ) { %>
                                         <img src="assets/img/prod-test.jpg" class="img-responsive" alt="a" />
+                                        <% } else { %>
+                                        <img src="<%= rs.getString("image") %>" class="img-responsive" alt="a" />
+                                        <% }%>
                                     </div>
                                     <div class="info">
                                         <div class="row">
@@ -78,7 +82,7 @@
                                             <p class="btn-add">
                                                 <c:choose>
                                                     <c:when test="${login == true}">
-                                                        <button class="hidden-sm btn btn-dark" onclick="add_cart(this, <%= rs.getString("id") %>, <%= order_id %>, <%= rs.getString("price") %>, <%= rs.getString("stock") %> )">Agregar <i class="fa fa-shopping-cart"></i></button>
+                                                        <button class="hidden-sm btn btn-dark" onclick="add_cart(this, <%= rs.getString("id")%>, <%= order_id%>, <%= rs.getString("price")%>, <%= rs.getString("stock")%>)">Agregar <i class="fa fa-shopping-cart"></i></button>
                                                         </c:when>
                                                         <c:when test="${login != true}">
                                                         <button type="button" class="hidden-sm btn btn-dark" disabled="disabled" title="Inicie session, para agregar productos"> Agregar <i class="fa fa-shopping-cart"></i></button>
@@ -95,11 +99,11 @@
                             </div>
                             <% count += 1;
                                 }
-                              
+
                             %>
-                            <input type="hidden" value="<%= count %>" id="col-size">
+                            <input type="hidden" value="<%= count%>" id="col-size">
                             <!-- panel del producto -->
-                             
+
 
                         </div>
                     </div>
