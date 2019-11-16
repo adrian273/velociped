@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
+import javax.persistence.Lob;
 
 /**
  *
@@ -18,7 +19,18 @@ import java.util.Hashtable;
 public class ProductModel {
 
     DBModel db;
+      
+    @Lob
+    private byte[] image_file;
 
+    public byte[] getImage_file() {
+        return image_file;
+    }
+
+    public void setImage_file(byte[] image_file) {
+        this.image_file = image_file;
+    }
+    
     public ProductModel() throws ClassNotFoundException, SQLException {
         db = new DBModel();
     }

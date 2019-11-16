@@ -14,12 +14,15 @@
             <div class="modal-header">
                 <h4 class="modal-title">
                     Informacion de La orden N°<i class="idOrder"></i>
+                    <input type="hidden" id="idOrderInput" value="">
                 </h4>
                 <p>Total: <span class="monto_total">0</span></p>
             </div>
             <form id="edit-status-form">
+                 <div class="update-alert"></div>
+                 <input type="hidden" name="status_reload" value="0">
                 <div class="modal-body" id="info-order-list">
-                    
+                   
                     
                 </div>
             </form>

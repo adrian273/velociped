@@ -38,6 +38,7 @@
 
     <body class="bg-dark">
         <input type="hidden" name="base" id="base" value="${path}">
+        <input type="hidden" name="type_profile" id="type_profile" value="<%= type %>">
         <div class="container">
             <div class="col-12">
                 <!-- Start: Navbar -->
@@ -87,7 +88,7 @@
                                     <% String url_cart = login == true ? request.getContextPath() + "/order_items?type=shopping_cart&i=" + or_id : "#!";%>
                                     <a class="nav-link btn btn-outline-info" href="<%= url_cart%>">
                                         <c:if test="${login}">
-                                            N° Orden: <%= or_id%>
+                                            <%--N° Orden: <%= or_id%> --%>
                                             <input type="hidden" value="<%= order_id%>" name="orders_id" id="orders_id">
                                         </c:if>
                                         <i class="fa fa-shopping-cart"></i> 

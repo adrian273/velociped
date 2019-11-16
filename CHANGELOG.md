@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.9.91] 11/10/2019
+## [0.9.92] 16/11/2019
+## Added 
+- Agregado cambio de estado en my order y all ordes
+## Removed
+- En header se dejo solo el icono el carrito de compra con su cantidad total
+
+## [0.9.91] 11/11/2019
 ## Removed
 - Removido Direccion en Edicion de usuario;
 - Removido Direccion en Agregar nuevo usuario;
@@ -18,7 +24,7 @@
 - En crud productos, cambio de orden de mostrar informacion
 - En crud users, cambio de orden de mostrar informacion
 
-## [0.9.9] 05/10/2019
+## [0.9.9] 05/11/2019
 ## Updated
 - Agregar productos desde el inicio de la pagina.
 - Cambio en el orden que se muestran la lista de "ordenes".
@@ -31,7 +37,7 @@
 - agregado logica para edicion de tipo de perfil en usuario
 
 
-## [0.9.8] 04/10/2019
+## [0.9.8] 04/11/2019
 ## Updated
 - Estilo del Scroll en las tablas y App global
 - Cambio a Dark mode en registro de usuario
@@ -42,7 +48,7 @@
 ## Fixed
 - Arreglado la palabra constitucion en eleccion de comunas
 
-## [0.9.7] 03/10/2019
+## [0.9.7] 03/11/2019
 ## Fixed
 - al editar la cantidad , si sobre pasa el stock, el valor sera el del stock del producto
 ## Added

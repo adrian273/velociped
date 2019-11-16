@@ -8,14 +8,12 @@ package controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -101,6 +99,11 @@ public class OrderController extends HttpServlet {
                     String i = request.getParameter("i");
                     orderInfo(request, response, i);
                     break;
+                case "change_status":
+                    String ident = request.getParameter("i");
+                    String idStatus = request.getParameter("status");
+                    changeStatusOrder(request, response, ident, idStatus);
+                    break;
             }
         }
     }
@@ -147,16 +150,16 @@ public class OrderController extends HttpServlet {
         RequestDispatcher rq = request.getRequestDispatcher("/orders/my-order.jsp");
         rq.forward(request, response);
     }
-    
+
     /**
-     * 
+     *
      * @param request
      * @param response
      * @param id
      * @throws ServletException
      * @throws IOException
      * @throws ClassNotFoundException
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected void orderInfo(HttpServletRequest request, HttpServletResponse response, String id)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
@@ -167,16 +170,16 @@ public class OrderController extends HttpServlet {
         ResultSet order_data = ord.getByOrderId(Integer.parseInt(id));
         ResultSet product_data = items.getShoppingCart(id);
         HttpSession ses = request.getSession();
-        
+
         try (PrintWriter out = response.getWriter()) {
-            
+
             JsonObjectBuilder json = Json.createObjectBuilder();
             JsonObjectBuilder productJson = Json.createObjectBuilder();
             JsonArrayBuilder arrJson = Json.createArrayBuilder();
 
             order_data.next();
             json.add("id", order_data.getString("ors.id"));
-            
+
             while (product_data.next()) {
                 productJson.add("id", product_data.getString("pro.id"));
                 productJson.add("name", product_data.getString("pro.name"));
@@ -185,25 +188,55 @@ public class OrderController extends HttpServlet {
                 productJson.add("subtotal", product_data.getString("oi.price"));
                 arrJson.add(productJson);
             }
-            
+
             json.add("id", order_data.getString("ors.id"));
             json.add("shipping", order_data.getString("ors.shipping"));
             json.add("created_at", order_data.getString("ors.created_at"));
             json.add("shipping", order_data.getString("ors.shipping"));
             json.add("status", order_data.getString("st_ors.status"));
             json.add("color", order_data.getString("st_ors.color"));
-            
+
             json.add("type", order_data.getString("pay.type"));
             json.add("region", order_data.getString("addr.region"));
             json.add("comuna", order_data.getString("addr.comuna"));
             json.add("address", order_data.getString("addr.address"));
             json.add("phone", order_data.getString("addr.phone"));
-            
+
             json.add("type_profile", (String) ses.getAttribute("typeProfile"));
-            
+
             json.add("products", arrJson);
 
             out.print(json.build());
+        }
+    }
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @param id
+     * @param status
+     * @throws ServletException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    protected void changeStatusOrder(HttpServletRequest request, HttpServletResponse response, String id, String status)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            OrderModel ordmdl = new OrderModel();
+            boolean up = ordmdl.updateStatusOrder(Integer.parseInt(id), Integer.parseInt(status));
+            JsonObjectBuilder conf = Json.createObjectBuilder();
+            if (up == false) {
+                conf.add("type", "success");
+                conf.add("msg", "Editado con exito");
+                conf.add("class_", "success");
+            } else {
+                conf.add("type", "error");
+                conf.add("msg", "Error Al editar");
+            }
+            out.print(conf.build());
         }
     }
 

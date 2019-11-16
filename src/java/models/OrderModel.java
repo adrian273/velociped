@@ -117,5 +117,19 @@ public class OrderModel {
                 + " WHERE id=" + id;
         return db.execute(query);
     }
+    
+    /**
+     * 
+     * @param id
+     * @param status
+     * @return
+     * @throws SQLException 
+     */
+    public boolean updateStatusOrder(int id, int status) throws SQLException {
+        String query = "UPDATE orders SET status_order_id=" + status + " "
+                + "WHERE id=" + id;
+        return db.execute(query);
+        //return false;
+    }
 
 }
